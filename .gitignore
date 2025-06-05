@@ -14,6 +14,3 @@ docker.env
 mlruns
 mlartifacts
 blog_post
-
-scaler.joblib
-best_churn_model.joblib

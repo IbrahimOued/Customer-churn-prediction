@@ -87,8 +87,7 @@ Apply SMOTE (optional) for class imbalance
 Tools:
 
 python
-Copier
-Modifier
+
 sklearn.linear_model, sklearn.ensemble, xgboost, imblearn
 
 ## 6. 📈 Model Evaluation
@@ -106,8 +105,7 @@ Feature importance plot (from Random Forest/XGBoost)
 Tools:
 
 python
-Copier
-Modifier
+
 sklearn.metrics, matplotlib
 
 ## 7. 🚀 Deployment Simulation (Optional Extension)
@@ -154,9 +152,9 @@ Key KPIs
 Filters for customer segments
 
 🗂️ Project Structure (Suggested)
-kotlin
-Copier
-Modifier
+
+
+```bash
 project_churn_prediction/
 │
 ├── data/
@@ -170,3 +168,4 @@ project_churn_prediction/
 │   └── fastapi_app.py
 ├── requirements.txt
 └── README.md
+```
