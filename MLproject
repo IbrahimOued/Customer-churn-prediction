@@ -1,0 +1,112 @@
+# MLproject template
+name: MLproject
+conda_env: conda.yaml
+entry_points:
+  main:
+    parameters:
+      pipeline_steps:
+        description: |
+          The steps to run in the pipeline. This can be a comma-separated list of steps.
+          For example, "train,evaluate,predict" will run the training, evaluation, and prediction steps.
+        type: str
+        default: all
+    command: "python start_pipeline.py --steps {pipeline_steps}"
+  data_preprocessing:
+    parameters:
+      input_dir:
+        description: "Directory containing the ingested data"
+        type: str
+        default: "datasets"
+      input_filename:
+        description: "Name of the input file to preprocess"
+        type: str
+        default: "Telco-Customer-Churn.csv"
+      output_dir:
+        description: "Directory to save the preprocessed data"
+        type: str
+        default: "datasets"
+    command: "python pipeline/data_preprocessing.py --input_dir {input_dir} --output_dir {output_dir} --input_filename {input_filename}"
+  model_training:
+    parameters:
+      max_iterations:
+        description: "Maximum number of iterations for the training algorithm"
+        type: int
+        default: 100
+      n_estimators:
+        description: "Number of estimators for the model"
+        type: int
+        default: 100
+      evaluation_metric:
+        description: "Metric to evaluate the model performance"
+        type: str
+        default: "logloss"
+      test_size:
+        description: "Proportion of the dataset to include in the test split"
+        type: float
+        default: 0.2
+      random_state:
+        description: "Random seed for reproducibility"
+        type: int
+        default: 42
+      input_dir:
+        description: "Directory containing the preprocessed data"
+        type: str
+        default: "datasets"
+      input_filename:
+        description: "Name of the input file to train the model"
+        type: str
+        default: "cleaned_telco_data.csv"
+      scaler_dir:
+        description: "This is the path where the scaler will be saved."
+        type: str
+        default: "scripts"
+      model_dir:
+        description: "Directory to save the trained model"
+        type: str
+        default: "models"
+    command: "python pipeline/model_training.py --input_dir {input_dir} --scaler_dir {scaler_dir} --model_dir {model_dir} \
+              --input_filename {input_filename} --max_iterations {max_iterations} \
+              --n_estimators {n_estimators} --evaluation_metric {evaluation_metric} \
+              --test_size {test_size} --random_state {random_state}"
+  # model_evaluation:
+  #   parameters:
+  #     model_path:
+  #       description: "Path to the trained model"
+  #       type: str
+  #       default: "models/trained_model.pkl"
+  #     test_data_path:
+  #       description: "Path to the test data for evaluation"
+  #       type: str
+  #       default: "data/test/test_data.csv"
+  #   output_dir:
+  #     description: "Directory to save the evaluation results"
+  #     type: str
+  #     default: "results/evaluation"
+  #   command: "python model_evaluation.py --model_path {model_path} --test_data_path {test_data_path} --output_dir {output_dir}"
+  # model_deployment:
+  #   parameters:
+  #     model_path:
+  #       description: "Path to the trained model to be deployed"
+  #       type: str
+  #       default: "models/trained_model.pkl"
+  #     deployment_target:
+  #       description: "Target environment for deployment (e.g., 'local', 'cloud')"
+  #       type: str
+  #       default: "local"
+  # command: "python model_deployment.py --model_path {model_path} --deployment_target {deployment_target}"
+
+
+# This MLproject file is used to define the structure and entry points for a machine learning project.
+# It includes commands for various stages of the machine learning pipeline.
+# The entry points include:
+# - start: The main entry point to run the pipeline with specified steps.
+# - data_ingestion: Command to run the data ingestion script.
+# - data_preprocessing: Command to run the data preprocessing script.
+# - feature_engineering: Command to run the feature engineering script.
+# - model_training: Command to run the model training script.
+# - model_evaluation: Command to run the model evaluation script.
+# - model_deployment: Command to run the model deployment script.
+# The `pipeline_steps` parameter allows users to specify which steps of the pipeline they want to execute.
+# The `conda_env` specifies the conda environment file to use for the project.
+# The `name` field specifies the name of the project.
+# The entry points allow for modular execution of different parts of the machine learning workflow.

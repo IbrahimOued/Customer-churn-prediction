@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+docker.env
+.env
+mlruns
+mlartifacts
+blog_post
+
+scaler.joblib
+best_churn_model.joblib

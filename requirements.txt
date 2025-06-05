@@ -1,0 +1,10 @@
+click
+fastapi
+ipykernel
+ipywidgets
+mlflow
+pandas
+python-dotenv
+scikit-learn
+xgboost
+ydata-profiling
