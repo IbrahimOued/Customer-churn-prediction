@@ -6,10 +6,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import mlflow.pyfunc
 
-# 🚀 Load Model & Scaler from MLflow
+# 🚀 Load Model & Scaler from MLflow and use the latest
 logged_model_uri = "runs:/<REPLACE_WITH_RUN_ID>/model"  # Update dynamically or use latest
 model = mlflow.pyfunc.load_model(logged_model_uri)
-scaler = joblib.load("../scripts/scaler.joblib")
+scaler = joblib.load("../models/scaler.joblib")
 
 # 🧾 Input Schema
 class CustomerFeatures(BaseModel):

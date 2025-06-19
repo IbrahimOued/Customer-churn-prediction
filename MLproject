@@ -26,6 +26,7 @@ entry_points:
         type: str
         default: "datasets"
     command: "python pipeline/data_preprocessing.py --input_dir {input_dir} --output_dir {output_dir} --input_filename {input_filename}"
+
   model_training:
     parameters:
       max_iterations:
@@ -59,7 +60,7 @@ entry_points:
       scaler_dir:
         description: "This is the path where the scaler will be saved."
         type: str
-        default: "scripts"
+        default: "models"
       model_dir:
         description: "Directory to save the trained model"
         type: str
@@ -68,21 +69,21 @@ entry_points:
               --input_filename {input_filename} --max_iterations {max_iterations} \
               --n_estimators {n_estimators} --evaluation_metric {evaluation_metric} \
               --test_size {test_size} --random_state {random_state}"
-  # model_evaluation:
-  #   parameters:
-  #     model_path:
-  #       description: "Path to the trained model"
-  #       type: str
-  #       default: "models/trained_model.pkl"
-  #     test_data_path:
-  #       description: "Path to the test data for evaluation"
-  #       type: str
-  #       default: "data/test/test_data.csv"
-  #   output_dir:
-  #     description: "Directory to save the evaluation results"
-  #     type: str
-  #     default: "results/evaluation"
-  #   command: "python model_evaluation.py --model_path {model_path} --test_data_path {test_data_path} --output_dir {output_dir}"
+  model_evaluation:
+    parameters:
+      model_path:
+        description: "Path to the trained model"
+        type: str
+        default: "models/trained_model.pkl"
+      test_data_path:
+        description: "Path to the test data for evaluation"
+        type: str
+        default: "data/test/test_data.csv"
+    output_dir:
+      description: "Directory to save the evaluation results"
+      type: str
+      default: "results/evaluation"
+    command: "python model_evaluation.py --model_path {model_path} --test_data_path {test_data_path} --output_dir {output_dir}"
   # model_deployment:
   #   parameters:
   #     model_path:

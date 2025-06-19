@@ -36,7 +36,7 @@ def task(input_dir, input_filename, output_dir, pipeline_run_name):
 
         logger.info(f"✅ Cleaned data saved to {output_dir}/{output_filename}")
         
-        # mlflow.log_artifact(output_dir + "/" + output_filename, artifact_path="data")
+        mlflow.log_artifact(output_dir + "/" + output_filename, artifact_path="data")
         mlflow.log_param("raw_dataset", input_dir + "/" + input_filename)
         mlflow.log_param("output_path", output_dir + "/" + output_filename)
         mlflow.set_tag('pipeline_step', __file__)

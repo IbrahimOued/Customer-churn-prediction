@@ -10,5 +10,5 @@ RUN pip install --upgrade pip \
 
 EXPOSE 8000
 
-CMD ["streamlit", "run", "streamlit_app.py", "--server.port", "8000", "--server.address", "
+CMD ["streamlit", "run", "streamlit_app.py", "--server.port", "5000", "--server.address", "
 

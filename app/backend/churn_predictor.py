@@ -8,7 +8,7 @@ import mlflow.pyfunc
 # logged_model_uri = "runs:/<REPLACE_WITH_RUN_ID>/model"  # Update dynamically or use latest
 # model = mlflow.pyfunc.load_model(logged_model_uri)
 model = joblib.load("models/best_churn_model.joblib")
-scaler = joblib.load("scripts/scaler.joblib")
+scaler = joblib.load("models/scaler.joblib")
 
 # 🧾 Input Schema
 class CustomerFeatures(BaseModel):

@@ -18,7 +18,7 @@ logger = logging.getLogger()
 @click.command(help="This program trains a model to predict customer churn based on cleaned data.")
 @click.option("--input_dir", default="datasets", help="This is the path where the data will be loaded from.")
 @click.option("--input_filename", default="cleaned_telco_data.csv", help="This is the name of the file to be load.")
-@click.option("--scaler_dir", default="scripts", help="This is the path where the scaler will be saved.")
+@click.option("--scaler_dir", default="models", help="This is the path where the scaler will be saved.")
 @click.option("--model_dir", default="models", help="This is the path where the model will be saved.")
 @click.option("--max_iterations", default=1000, help="Maximum iterations for Logistic Regression.")
 @click.option("--n_estimators", default=100, help="Number of estimators for Random Forest.")
@@ -85,7 +85,7 @@ def task(input_dir, input_filename, scaler_dir, model_dir, max_iterations, n_est
 
             joblib.dump(scaler, f"{scaler_dir}/{scaler_name}")
 
-            # mlflow.log_artifact(f"{scaler_dir}/{scaler_name}", artifact_path="scalers")
+            mlflow.log_artifact(f"{scaler_dir}/{scaler_name}", artifact_path="scalers")
             mlflow.log_param("scaler_name", scaler_name)
 
         
@@ -125,9 +125,9 @@ def task(input_dir, input_filename, scaler_dir, model_dir, max_iterations, n_est
         logger.info(f"\n✅ Best Model: {best_model_name} with ROC-AUC: {best_score:.4f}")
         joblib.dump(best_model, f"{model_dir}/{model_name}")
 
-        # mlflow.sklearn.log_model(model, model_dir, input_example=X_train.head(1))
+        mlflow.sklearn.log_model(model, model_dir, input_example=X_train.head(1))
         logger.info(f"Model saved to {model_dir}/{model_name}")
-        # mlflow.log_artifact(f"{model_dir}/{model_name}", artifact_path="models")
+        mlflow.log_artifact(f"{model_dir}/{model_name}", artifact_path="models")
         mlflow.log_param("best_model_name", best_model_name)
         mlflow.log_param("best_model_score", best_score)
         mlflow.log_param("mlflow_run_id", mlrun.info.run_id)

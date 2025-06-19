@@ -29,7 +29,7 @@ services:
       - .env
     entrypoint: >
       /bin/sh -c "
-        until (/usr/bin/mc config host add minio http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}) do echo '...waiting...' && sleep 1; done;
+        until (/usr/bin/mc config host add minio ${MLFLOW_S3_ENDPOINT_URL} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}) do echo '...waiting...' && sleep 1; done;
         /usr/bin/mc mb --ignore-existing minio/${MLFLOW_BUCKET_NAME}
         /usr/bin/mc policy set public minio/${MLFLOW_BUCKET_NAME};
         /usr/bin/mc mb --ignore-existing minio/${DATA_REPO_BUCKET_NAME};
@@ -72,8 +72,8 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     command: >
-      mlflow server --backend-store-uri ${MLFLOW_BACKEND_STORE_URI}
-        --default-artifact-root ${MLFLOW_DEFAULT_ARTIFACT_ROOT}
+      mlflow server --backend-store-uri postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+        --artifacts-destination ${MLFLOW_ARTIFACTS_ROOT}
         --host 0.0.0.0
 
   nginx:
