@@ -1,5 +1,5 @@
-click
 fastapi
+streamlit
 ipykernel
 ipywidgets
 mlflow
